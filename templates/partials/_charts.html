@@ -10,22 +10,57 @@
     data.addColumn('string', 'To');
     data.addColumn('number', 'Weight');
     data.addRows([
-      ['A', 'X', 5],
-      ['A', 'Y', 7],
-      ['A', 'Z', 6],
-      ['B', 'X', 2],
-      ['B', 'Y', 9],
-      ['B', 'Z', 4],
-      ['X', 'G', 3],
-      ['Y', 'H', 2],
-      ['Z', 'G', 6],
-      ['X', 'H', 2],
-      ['Y', 'G', 9]
+       [ 'Brazil', 'Portugal', 5 ],
+       [ 'Brazil', 'France', 1 ],
+       [ 'Brazil', 'Spain', 1 ],
+       [ 'Brazil', 'England', 1 ],
+       [ 'Canada', 'Portugal', 1 ],
+       [ 'Canada', 'France', 5 ],
+       [ 'Canada', 'England', 1 ],
+       [ 'Mexico', 'Portugal', 1 ],
+       [ 'Mexico', 'France', 1 ],
+       [ 'Mexico', 'Spain', 5 ],
+       [ 'Mexico', 'England', 1 ],
+       [ 'USA', 'Portugal', 1 ],
+       [ 'USA', 'France', 1 ],
+       [ 'USA', 'Spain', 1 ],
+       [ 'USA', 'England', 5 ],
+       [ 'Portugal', 'Angola', 2 ],
+       [ 'Portugal', 'Senegal', 1 ],
+       [ 'Portugal', 'Morocco', 1 ],
+       [ 'Portugal', 'South Africa', 3 ],
+       [ 'France', 'Angola', 1 ],
+       [ 'France', 'Senegal', 3 ],
+       [ 'France', 'Mali', 3 ],
+       [ 'France', 'Morocco', 3 ],
+       [ 'France', 'South Africa', 1 ],
+       [ 'Spain', 'Senegal', 1 ],
+       [ 'Spain', 'Morocco', 3 ],
+       [ 'Spain', 'South Africa', 1 ],
+       [ 'England', 'Angola', 1 ],
+       [ 'England', 'Senegal', 1 ],
+       [ 'England', 'Morocco', 2 ],
+       [ 'England', 'South Africa', 7 ],
+       [ 'South Africa', 'China', 5 ],
+       [ 'South Africa', 'India', 1 ],
+       [ 'South Africa', 'Japan', 3 ],
+       [ 'Angola', 'China', 5 ],
+       [ 'Angola', 'India', 1 ],
+       [ 'Angola', 'Japan', 3 ],
+       [ 'Senegal', 'China', 5 ],
+       [ 'Senegal', 'India', 1 ],
+       [ 'Senegal', 'Japan', 3 ],
+       [ 'Mali', 'China', 5 ],
+       [ 'Mali', 'India', 1 ],
+       [ 'Mali', 'Japan', 3 ],
+       [ 'Morocco', 'China', 5 ],
+       [ 'Morocco', 'India', 1 ],
+       [ 'Morocco', 'Japan', 3 ]
     ]);
 
     // Sets chart options.
     var options = {
-      // width: maxWidth,
+
     };
 
     // Instantiates and draws our chart, passing in some options.
@@ -43,15 +78,18 @@
   function drawChart() {
     var data = google.visualization.arrayToDataTable([
       ['Stock type', 'Volume'],
-      ['Addition to stock', 11],
-      ['Eat', 2],
-      ['Commute', 2],
-      ['Else', 3],
+      ['Waste Generation', 11],
+      ['Stock Depletion', 2],
+      ['Waste Recovery', 2],
+      ['Circularity Gap', 8],
     ]);
 
     var options = {
       title: 'Circularity Gap',
       pieHole: 0.4,
+      slices: {0: {offset:0.1}},
+      pieSliceText: 'none',
+      reverseCategories: 'true'
     };
 
     var chart = new google.visualization.PieChart(document.getElementById('donutchart'));
@@ -61,13 +99,13 @@
 
 <div class="columns is-12">
 
-  <div class="column is-small is-8">
-      <div id="sankey_basic" style="max-width: 100;"></div>
+  <div class="column is-small is-7">
+      <div id="sankey_basic" ></div>
 
   </div>
 
-  <div class="column is-small is-2">
-      <div id="donutchart"></div>
+  <div class="column is-small is-3">
+      <div id="donutchart" ></div>
 
 
   </div>
@@ -78,8 +116,8 @@
               Scenarios
           </p>
           <p class="panel-tabs">
-              <a>Collaborative</a>
-              <a>User's</a>
+            <a>User's <i class="fas fa-user" aria-hidden="true"></i></a> 
+            <a>Collaborative <i class="fas fa-users" aria-hidden="true"></i></a>
           </p>
           <div class="panel-block">
               <p class="control has-icons-left">
