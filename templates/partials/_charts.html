@@ -1,0 +1,60 @@
+<script>
+  google.charts.load('current', {
+    'packages': ['sankey']
+  });
+  google.charts.setOnLoadCallback(drawChart);
+
+  function drawChart() {
+    var data = new google.visualization.DataTable();
+    data.addColumn('string', 'From');
+    data.addColumn('string', 'To');
+    data.addColumn('number', 'Weight');
+    data.addRows([
+      ['A', 'X', 5],
+      ['A', 'Y', 7],
+      ['A', 'Z', 6],
+      ['B', 'X', 2],
+      ['B', 'Y', 9],
+      ['B', 'Z', 4],
+      ['X', 'G', 3],
+      ['Y', 'H', 2],
+      ['Z', 'G', 6],
+      ['X', 'H', 2],
+      ['Y', 'G', 9]
+    ]);
+
+    // Sets chart options.
+    var options = {
+      // width: maxWidth,
+    };
+
+    // Instantiates and draws our chart, passing in some options.
+    var chart = new google.visualization.Sankey(document.getElementById('sankey_basic'));
+    chart.draw(data, options);
+  }
+</script>
+
+<script type="text/javascript">
+  google.charts.load("current", {
+    packages: ["corechart"]
+  });
+  google.charts.setOnLoadCallback(drawChart);
+
+  function drawChart() {
+    var data = google.visualization.arrayToDataTable([
+      ['Stock type', 'Volume'],
+      ['Addition to stock', 11],
+      ['Eat', 2],
+      ['Commute', 2],
+      ['Else', 3],
+    ]);
+
+    var options = {
+      title: 'Circularity Gap',
+      pieHole: 0.4,
+    };
+
+    var chart = new google.visualization.PieChart(document.getElementById('donutchart'));
+    chart.draw(data, options);
+  }
+</script>
