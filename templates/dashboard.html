@@ -7,14 +7,14 @@
     <div class="tabs is-centered is-boxed is-small">
         <ul>
             <li>
-                <a>
-                    <span class="icon is-small" id="HybTables"><i class="fas fa-gem" aria-hidden="true"></i></span>
+                <a id="HybTables">
+                    <span class="icon is-small"><i class="fas fa-gem" aria-hidden="true"></i></span>
                     <span>Hybrid tables</span>
                 </a>
             </li>
             <li>
-                <a>
-                    <span class="icon is-small" id="MonTables"><i class="fas fa-euro-sign" aria-hidden="true"></i></span>
+                <a id="MonTables">
+                    <span class="icon is-small"><i class="fas fa-euro-sign" aria-hidden="true"></i></span>
                     <span>Monetary tables</span>
                 </a>
             </li>
@@ -27,14 +27,26 @@
         </ul>
     </div>
 
-    <div id='charts'>
-        {% include 'partials/_charts.html' %}
+    <div class="columns">
+
+        <div class="column" id='charts'>
+            {% include 'partials/_charts.html' %}
+            <div class="columns">
+                <div class="column is-9" id="sankey_basic"></div>
+                <div class="column is-3" id="donutchart"></div>
+            </div>
+        </div>
+
+        <div class="column" id='scenarios' style='display:none'>
+
+            {% include 'partials/_scenarioTable.html' %}
+
+        </div>
+
+        <div class="column is-2">
+            {% include 'partials/_scenarioMenu.html' %}
+        </div>
     </div>
-
-    <!-- <div id='scenarios'>
-        {% include 'partials/_scenarioTable.html' %}
-    </div> -->
-
 
 </section>
 
