@@ -4,11 +4,11 @@
 
 <section class="section">
 
-    <div class="tabs is-centered is-boxed is-small">
+    <div class="tabs is-centered is-boxed">
         <ul>
             <li>
                 <a id="HybTables">
-                    <span class="icon is-small"><i class="fas fa-gem" aria-hidden="true"></i></span>
+                    <span class="icon is-small"><i class="fas fa-cubes" aria-hidden="true"></i></span>
                     <span>Hybrid tables</span>
                 </a>
             </li>
@@ -27,14 +27,47 @@
         </ul>
     </div>
 
+
+
+    </div>
+
+
     <div class="columns">
 
         <div class="column" id='charts'>
+            <div>
+                <div class="control has-icons-left">
+                    <div class="select is-small">
+                        <select>
+                            <option selected>Supply chain</option>
+                            <option>Select dropdown</option>
+                            <option>With options</option>
+                        </select>
+                        <span class="icon is-small is-left">
+                            <i class="fas fa-globe"></i>
+                        </span>
+                    </div>
+
+                    <div class="select is-small">
+                        <select>
+                            <option selected>Country</option>
+                            <option>Select dropdown</option>
+                            <option>With options</option>
+                        </select>
+                        <span class="icon is-small is-left">
+                            <i class="fas fa-globe"></i>
+                        </span>
+                    </div>
+                    <button class="button is-success is-small is-hovered">Select</button>
+                </div>
+            </div>
             {% include 'partials/_charts.html' %}
-            <div class="columns">
+            <div class="column" id="sankey_basic"></div>
+            <!-- <div class="columns">
+                <div class="column is-9" id="sankey_basic"></div>
                 <div class="column is-9" id="sankey_basic"></div>
                 <div class="column is-3" id="donutchart"></div>
-            </div>
+            </div> -->
         </div>
 
         <div class="column" id='scenarios' style='display:none'>
@@ -42,12 +75,67 @@
             {% include 'partials/_scenarioTable.html' %}
 
         </div>
-
         <div class="column is-2">
             {% include 'partials/_scenarioMenu.html' %}
         </div>
+
     </div>
 
+    <section class="section">
+        <div class="tabs is-centered is-boxed">
+            <ul>
+                <li class="is-active">
+                    <a>
+                        <span class="icon is-small"><i class="fas fa-cloud"></i></span>
+                        <span>GHG emissions</span>
+                    </a>
+                </li>
+                <li>
+                    <a>
+                        <span class="icon is-small"><i class="fas fa-circle-notch"></i></span>
+                        <span>Circularity gap</span>
+                    </a>
+                </li>
+                <li>
+                    <a>
+                        <span class="icon is-small"><i class="fas fa-tint"></i></span>
+                        <span>Water use</span>
+                    </a>
+                </li>
+                <li>
+                    <a>
+                        <span class="icon is-small"><i class="fas fa-globe-africa"></i></span>
+                        <span>Land use</span>
+                    </a>
+                </li>
+                <li>
+                    <a>
+                        <span class="icon is-small"><i class="fas fa-gem"></i></span>
+                        <span>Abiotic Extraction</span>
+                    </a>
+                </li>
+                <li>
+                    <a>
+                        <span class="icon is-small"><i class="fas fa-tree"></i></span>
+                        <span>Biotic Extraction</span>
+                    </a>
+                </li>
+                <li>
+                    <a>
+                        <span class="icon is-small"><i class="fas fa-users-cog"></i></span>
+                        <span>Labour</span>
+                    </a>
+                </li>
+                <li>
+                    <a>
+                        <span class="icon is-small"><i class="fas fa-money-bill-wave-alt"></i></span>
+                        <span>Value added</span>
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </section>
 </section>
+
 
 {% endblock %}

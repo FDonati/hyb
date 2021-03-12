@@ -7,11 +7,11 @@ const chartTabDiv = document.querySelector("#charts")
 const hybTabDiv = document.querySelector("#HybTables")
 
 scenInputBtn.addEventListener('click', function () {
-        scenTabDiv.style.display = "block";
+        scenTabDiv.style.display = "";
         chartTabDiv.style.display = "none";
 })
 
 hybInputBtn.addEventListener('click', function () {
     scenTabDiv.style.display = "none";
-    chartTabDiv.style.display = "block";
+    chartTabDiv.style.display = "";
 })
