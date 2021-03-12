@@ -21,14 +21,14 @@ NOT AVAILABLE YET
 
 ### Clone the project 
 ``` 
-git clone 
+git clone https://github.com/FDonati/hyb.git
 
-### Install docker
 ``` 
+### Install docker
 https://docs.docker.com/compose/install/
 
-## Run docker
-``` 
+## Run the project
+
 In the directory where you cloned the project run
 the following commands
 
@@ -38,6 +38,7 @@ $ python3 manage.py makemigrations
 $ python3 manage.py migrate
 ```
 ### start the container
+```
 $ docker-compose up
-
+```
 
