@@ -6,12 +6,17 @@ const scenTabDiv = document.querySelector("#scenarios")
 const chartTabDiv = document.querySelector("#charts")
 const hybTabDiv = document.querySelector("#HybTables")
 
-scenInputBtn.addEventListener('click', function () {
-        scenTabDiv.style.display = "";
-        chartTabDiv.style.display = "none";
-})
+scenInputBtn.onclick = function() {
+    if (scenTabDiv.style.display !== 'none') {
+        scenTabDiv.style.display = 'none';
+    }
+    else {
+        scenTabDiv.style.display = 'block';
+    }
+};
 
 hybInputBtn.addEventListener('click', function () {
-    scenTabDiv.style.display = "none";
-    chartTabDiv.style.display = "";
+    if (hybTabDiv.style.display == "none") {
+        hybTabDiv.style.display = "";
+    } 
 })
