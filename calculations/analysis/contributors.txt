@@ -1,0 +1,6 @@
+(Ramascene & Circumat) Back-end developer: Sidney Niccolson (CML)
+(Ramascene) Front-end developer: Bart Daniels (VITO)
+(Ramascene) IO calculations: Arjan de Koning & Hale Cetinay (CML)
+(Ramascene) IO modelling: Franco Donati (CML)
+Eurostat data: Elmer Rietveld (TNO)
+Project manager: Hale Cetinay Iyicil (CML)
