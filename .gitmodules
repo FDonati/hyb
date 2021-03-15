@@ -1,6 +1,7 @@
 [submodule "circularity_gap"]
-	path = calculations/circularity_gap
+	path = calculations/modules/circularity_gap
 	url = https://github.com/FDonati/cgn_supplementary_material.git
-[submodule "CircuMAT"]
-	path = CircuMAT
+
+[submodule "NUTS2_disag"]
+	path = calculations/modules/NUTS2_disag
 	url = https://github.com/FDonati/CircuMAT.git
