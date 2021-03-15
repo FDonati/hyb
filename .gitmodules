@@ -1,0 +1,3 @@
+[submodule "circularity_gap"]
+	path = calculations/circularity_gap
+	url = https://github.com/FDonati/cgn_supplementary_material.git
