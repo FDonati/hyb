@@ -21,7 +21,9 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/3.1/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'pydzp9lzf6@)5r#vg#l!e0_6x^+$28obk53(q-!wgx#9wylwq@'
+SECRET_KEY_FILE = open(os.path.join(BASE_DIR, 'SECRET_KEY.txt')).readlines()
+SECRET_KEY = SECRET_KEY_FILE[0]
+
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -40,6 +42,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     # my apps
     'dashboard',
+    'calculations',
 ]
 
 MIDDLEWARE = [

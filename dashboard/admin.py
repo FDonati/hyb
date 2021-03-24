@@ -1,6 +1,9 @@
 from django.contrib import admin
 
 # Register your models here.
-from .models import  SupplyChain
+from .models import  SupplyChainSelection, User, Organization, ScenarioChanges
 
-admin.site.register(SupplyChain)
+admin.site.register(SupplyChainSelection)
+admin.site.register(ScenarioChanges)
+admin.site.register(User)
+admin.site.register(Organization)

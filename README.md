@@ -29,8 +29,15 @@ https://docs.docker.com/compose/install/
 
 ## Run the project
 
-In the directory where you cloned the project run
+Open the terminal in the directory where you cloned the project run
 the following commands
+
+## Create a secret key
+Run only ones in the beginning of your project
+
+```
+$ python -c 'from django.core.management.utils import get_random_secret_key; key_file = open("SECRET_KEY.txt", "wt"); key_file.write(get_random_secret_key());key_file.close()'
+```
 
 ### Prepare the database
 ```
