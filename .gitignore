@@ -3,3 +3,4 @@ SECRET_KEY.txt
 
 # cache
 **/__pycache__
+__pycache__
