@@ -1,0 +1,5 @@
+# Secret key file 
+SECRET_KEY.txt
+
+# cache
+**/__pycache__

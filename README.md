@@ -33,7 +33,7 @@ Open the terminal in the directory where you cloned the project run
 the following commands
 
 ## Create a secret key
-Run only ones in the beginning of your project
+Run only once in the beginning of your project
 
 ```
 $ python -c 'from django.core.management.utils import get_random_secret_key; key_file = open("SECRET_KEY.txt", "wt"); key_file.write(get_random_secret_key());key_file.close()'
