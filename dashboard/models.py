@@ -1,4 +1,5 @@
 from django.db import models
+import numpy as np
 
 # Create your models here.
 class SupplyChainSelection(models.Model):
@@ -6,7 +7,7 @@ class SupplyChainSelection(models.Model):
     region = models.CharField(max_length=50)
     primary = models.BooleanField(default=False)
 
-class ScenarioChanges(models.Model):
+class ScenarioChange(models.Model):
     source1 = models.CharField(max_length=50)
     source2 = models.CharField(max_length=50)
     target1 = models.CharField(max_length=50)

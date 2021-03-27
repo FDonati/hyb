@@ -1,9 +1,9 @@
 from django import forms
-from .models import ScenarioChanges
+from .models import ScenarioChange
 
 class ScenarioForm(forms.ModelForm):
     class  Meta:
-        model = ScenarioChanges
+        model = ScenarioChange
         fields = [
             'source1',
             'value',

@@ -1,6 +1,6 @@
 from django.shortcuts import render
 from django.http import HttpResponse
-from .models import ScenarioChanges
+from .models import ScenarioChange
 from calculations.views import calculations
 
 from .forms import ScenarioForm
