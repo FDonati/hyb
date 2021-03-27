@@ -1,11 +1,9 @@
+import os
 import logging
 import json
 import numpy as np
-from circumat import productindexmanger as pim
-from circumat import querymanagement
-from django.conf import settings
-import pandas as pd
-import os
+import productindexmanger as pim
+import querymanagement
 log = logging.getLogger(__name__)
 
 

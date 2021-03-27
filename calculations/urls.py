@@ -1,11 +1,11 @@
 from django.conf.urls import url
 from django.urls import path
-import circumat.views as views
+import calculations.views as views
 from django.contrib.staticfiles.urls import staticfiles_urlpatterns
+from django.urls import path
+from . import views
 
 urlpatterns = [
-    # url(r'^$', views.ExioVisuals, name='ExioVisuals'),
-    path('circumat/', views.home, name='home'),
     path('ajaxhandling/', views.ajaxHandling, name='ajaxhandling'),
-
+    path('', views.calculations, name='calculations')
 ]
