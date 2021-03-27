@@ -46,6 +46,18 @@ $ python3 manage.py migrate
 ```
 ### start the container
 ```
-$ docker-compose up
+$ docker-compose up 
 ```
 
+If you run into issues you likely need to rebuild the image
+In that case run
+
+```
+$ docker-compose up --build
+```
+
+### Generate project's UML class diagram
+
+```
+$ python manage.py graph_models -a -o hybapp_models.png
+```
