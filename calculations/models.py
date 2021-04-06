@@ -3,6 +3,7 @@ from django.utils import timezone
 # Create your models here.
 
 
+
 class Job(models.Model):
     ''' Job model to store Celery jobs '''
 
@@ -25,13 +26,4 @@ class Job(models.Model):
         ordering = ('created',)
 
     def __str__(self):
-        return str(self.pk)
-
-class Csv(models.Model):
-    ''' 
-    Importing hybrid tables to database   
-    '''
-
-    file_name = models.FileField(upload_to='tables')
-    upload = models.DateTimeField(auto_now_add=True)
-    activated = models.BooleanField(default=False)
+        return str(self.name)
