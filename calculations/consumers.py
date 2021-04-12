@@ -4,13 +4,13 @@ from .models import Job
 from .tasks import default_handler
 from channels.generic.websocket import JsonWebsocketConsumer
 from channels.exceptions import StopConsumer
-from circumat import querymanagement
+import querymanagement
 import time
 
 log = logging.getLogger(__name__)
 
 
-class CircumatConsumer(JsonWebsocketConsumer):
+class HybConsumer(JsonWebsocketConsumer):
     """
     This  class  represents  the  Django  Channels  web  socket  interface  functionality.
     """

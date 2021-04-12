@@ -1,8 +1,6 @@
 from django.shortcuts import render
 from django.http import HttpResponse
 from .models import ScenarioChange
-from calculations.views import calculations
-
 from .forms import ScenarioForm
 # Create your views here.
 
@@ -14,8 +12,8 @@ def dashboard_view(request, *args, **kwargs):
     #     "object" : obj,
     #     "form" : scenario_create_view(request)["form"]
     # }
-    context = {"hey": calculations(request)}
-    return render(request, "dashboard.html", context)
+    # context = {"hey": calculations(request)}
+    return render(request, "dashboard.html")
 
 
 def ajaxHandling(request):

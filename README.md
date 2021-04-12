@@ -61,3 +61,18 @@ $ docker-compose up --build
 ```
 $ python manage.py graph_models -a -o hybapp_models.png
 ```
+
+## The different apps
+
+### Dashboard
+All the front end work accessible to the enduser. It contains landing page, visualization scripts (js), etc
+
+### Calculations
+This apps chiefly handles backend job queues and calculations requested by the client.
+
+### Data
+Loads and manages the different databases and their indexes. 
+1) Users and groups' data
+2) Exiobase hybrid and monetary tables
+3) Saved scenarios
+ 

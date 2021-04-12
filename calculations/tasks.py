@@ -5,9 +5,9 @@ import json
 import numpy as np
 from asgiref.sync import AsyncToSync
 from celery import shared_task
-from circumat import querymanagement
-from circumat.analyze import Analyze
-from circumat.modelling import Modelling
+from hyb import querymanagement
+from hyb.analyze import Analyze
+from hyb.modelling import Modelling
 
 log = logging.getLogger(__name__)
 
@@ -154,7 +154,7 @@ def execute_calc(job_name, job_id, channel_name, ready_query_selection, query_se
 
 def handle_complete(job_id, channel_name, celery_id):
     """
-    Handle a successful Celery  Task.
+    Handle a successful Celery Task.
     """
     # get the job model by primary key
     job = Job.objects.get(pk=job_id)

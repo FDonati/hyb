@@ -43,11 +43,15 @@ INSTALLED_APPS = [
 
     # third party apps
     'django_extensions',
+    # 'channels',
+    # 'webpack_loader'
+    # 'django_celery_results',
 
     # my apps
     'dashboard',
     'calculations',
     'data',
+    'labels',
 ]
 
 MIDDLEWARE = [
@@ -88,19 +92,7 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
         'NAME': BASE_DIR / 'data/db.sqlite3',
-    },
-    'exio_hybrid_db': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'data/exiobase_hybrid.db',
-    },
-    'exio_monetary_db': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'data/monetary_hybrid.db',
-    },
-    'community_scenarios_db': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'data/community_scenarios.db',
-    },
+    }
 }
 
 
@@ -143,5 +135,3 @@ USE_TZ = True
 STATIC_URL = '/static/'
 STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static')]
 STATIC_ROOT = os.path.join(BASE_DIR, 'assets')
-
-DATABASE_ROUTERS = ['routers.db_routers.AuthRouter', 'routers.db_routers.ExioHybrid',]
