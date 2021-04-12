@@ -9,8 +9,13 @@ env_hyb
 
 # data 
 *.db
+db.sqlite
 *.csv
 *.pdf
 *.xlsx
 *.npy
 data/data/*.json
+*.zip
+
+# migration files
+migrations

@@ -4,7 +4,7 @@ from django.db import models
 
 
 
-class Country(models.Model):
+class Region(models.Model):
     """
     Country model to store identifiers for the countries and aggregations
     """
