@@ -18,7 +18,7 @@ import os, sys
 from collections import defaultdict
 import itertools
 
-MY_TREE_FILE = '../output_data/circumat_regions.csv'
+MY_TREE_FILE = 'input_data/regions.csv'
 BINS = {}
 MYDATA = []
 
@@ -40,7 +40,7 @@ def getfile(myFile):
 
     # fill the empty list with the data (this time split even further by tabs)
     for line in U:
-        data.append(line.split('\t'))
+        data.append(line.split(','))
     # remove header and last line -> it is always structured the same and we reconstruct later in a modified manner
     data.pop(0)
     data.pop(-1)
@@ -81,6 +81,62 @@ def countchildren(data):
 
     return BINS
 
+def getLowestChildren(level, maxLvl, children, gb, data):
+    myChildrenGlobal = ""
+    myChildrenGlobal_asList = []
+    for x in range(len(level)):
+        # first in line, if we add an iterator is to add 1 to the level than this node is Ok as it has its leafs
+        # for the other ones we need to get get children until Max level is satisfied, HOW TO DO THAT?
+        counter = 1
+        currentLvl = level[x]
+        currentLvl = int(currentLvl) + counter
+
+        if str(currentLvl) == maxLvl:
+
+            myChildrenGlobal = "#".join(children)
+
+            myChildrenGlobal_asList.append(children)
+
+        elif str(currentLvl + counter) == maxLvl:
+            ## APPLY DICTIONARY AGAIN
+            # after DO COUNTER +=1
+            # call specialized function again
+            # getLowestChildren([1,2,3],5,"test",890)
+            special_dict = defaultdict(list)
+            for y in range(len(children)):
+                # now we can use the global_id to fetch the correct values
+                print(BINS.keys())
+                resultChildrenofAgg = BINS[children[y]]
+                prepareChildren = list(resultChildrenofAgg)
+                # sometimes a key is already in dict. we want to add a value to it
+                special_dict[gb].append(prepareChildren)
+
+            for key in special_dict:
+                myValues = special_dict[key]
+                # join list of list
+                myMergedValues = (list(itertools.chain.from_iterable(myValues)))
+                myChildrenGlobal_asList.append(myMergedValues)
+                myChildrenGlobal = "#".join(myMergedValues)
+                # print("not printing")
+        else:
+            print("Too many levels are found, the depth is too high.")
+            sys.exit("Too many levels are found, the depth is too high. The created file is corrupted")
+    myChildrenLocal_asList = []
+    # second-to last step is to find all local IDs given + an offset (-1) for exiobase
+    for el in myChildrenGlobal_asList:
+        temp_list = []
+        # el is a list in itself so we need to dive deeper
+        for sub_el in el:
+            real_idx = int(sub_el) - 1
+            mySpecificLocalId = data[real_idx][4]
+            mySpecificLocalId_offsetted = int(mySpecificLocalId) - 1
+
+            temp_list.append(str(mySpecificLocalId_offsetted))
+        myChildrenLocal_asList.append(temp_list)
+    # last step is to prepare for csv
+    for el in myChildrenLocal_asList:
+        myChildrenLocal = "#".join(el)
+    return myChildrenGlobal, myChildrenLocal
 
 def constructFinalCSV(data, dictOfChildren):
     # get the max level (the most disaggregated nodes/leafs)
@@ -113,7 +169,7 @@ def constructFinalCSV(data, dictOfChildren):
     myLeafsGlobal = "#".join(myLeafsGlobal)
     myLeafsLocal = "#".join(myLeafsLocal)
 
-    with open('../data/mod_' + os.path.basename(MY_TREE_FILE), 'w') as csvfile:
+    with open('output_data/mod_' + os.path.basename(MY_TREE_FILE), 'w') as csvfile:
         writer = csv.writer(csvfile, delimiter='\t',
                             quotechar='|', quoting=csv.QUOTE_MINIMAL)
         # reconstruct headers with modifications
@@ -142,7 +198,7 @@ def constructFinalCSV(data, dictOfChildren):
                 writer.writerow(
                     [name, code, global_id, parent_id, local_id, level, identifier, myChildrenGlobal, myChildrenLocal])
             # if total is somewhere in the datastructure, this is not always the case!
-            elif code == "total":
+            elif code == "TOTAL":
                 identifier = "TOTAL"
                 myChildrenGlobal = myLeafsGlobal
                 myChildrenLocal = myLeafsLocal
@@ -160,12 +216,13 @@ def constructFinalCSV(data, dictOfChildren):
                             resultChildrenofAgg = dictOfChildren[global_id]
                             prepareChildren = list(resultChildrenofAgg)
 
-                            myChildrenGlobal, myChildrenLocal = getLowestChildren(level, maxLvl, prepareChildren, global_id,
-                                                                                  data)
+                            print(resultChildrenofAgg)
+                            print(prepareChildren)
+                            myChildrenGlobal, myChildrenLocal = getLowestChildren(level, maxLvl, prepareChildren,
+                                                                                    global_id, data)
                             # we are not there yet, as when an Aggregate has children that are Aggregates themselves
                             # we need to dive even deeper
                             # thus the number of levels would be needed to traverse to the lowest level
-                            # print(resultChildrenofAgg)
 
 
                             # prepare for output
@@ -178,61 +235,7 @@ def constructFinalCSV(data, dictOfChildren):
             print("Row :" + name + " added.")
 
 
-def getLowestChildren(level, maxLvl, children, gb, data):
-    myChildrenGlobal = ""
-    myChildrenGlobal_asList = []
-    for x in range(len(level)):
-        # first in line, if we add an iterator is to add 1 to the level than this node is Ok as it has its leafs
-        # for the other ones we need to get get children until Max level is satisfied, HOW TO DO THAT?
-        counter = 1
-        currentLvl = level[x]
-        currentLvl = int(currentLvl) + counter
 
-        if str(currentLvl) == maxLvl:
-
-            myChildrenGlobal = "#".join(children)
-
-            myChildrenGlobal_asList.append(children)
-
-        elif str(currentLvl + counter) == maxLvl:
-            ## APPLY DICTIONARY AGAIN
-            # after DO COUNTER +=1
-            # call specialized function again
-            # getLowestChildren([1,2,3],5,"test",890)
-            special_dict = defaultdict(list)
-            for y in range(len(children)):
-                # now we can use the global_id to fetch the correct values
-                resultChildrenofAgg = BINS[children[y]]
-                prepareChildren = list(resultChildrenofAgg)
-                # sometimes a key is already in dict. we want to add a value to it
-                special_dict[gb].append(prepareChildren)
-
-            for key in special_dict:
-                myValues = special_dict[key]
-                # join list of list
-                myMergedValues = (list(itertools.chain.from_iterable(myValues)))
-                myChildrenGlobal_asList.append(myMergedValues)
-                myChildrenGlobal = "#".join(myMergedValues)
-                # print("not printing")
-        else:
-            print("Too many levels are found, the depth is too high.")
-            sys.exit("Too many levels are found, the depth is too high. The created file is corrupted")
-    myChildrenLocal_asList = []
-    # second-to last step is to find all local IDs given + an offset (-1) for exiobase
-    for el in myChildrenGlobal_asList:
-        temp_list = []
-        # el is a list in itself so we need to dive deeper
-        for sub_el in el:
-            real_idx = int(sub_el) - 1
-            mySpecificLocalId = data[real_idx][4]
-            mySpecificLocalId_offsetted = int(mySpecificLocalId) - 1
-
-            temp_list.append(str(mySpecificLocalId_offsetted))
-        myChildrenLocal_asList.append(temp_list)
-    # last step is to prepare for csv
-    for el in myChildrenLocal_asList:
-        myChildrenLocal = "#".join(el)
-    return myChildrenGlobal, myChildrenLocal
 
 
 # Start execution here!
