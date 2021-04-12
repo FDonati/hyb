@@ -9,7 +9,7 @@ env_hyb
 
 # data 
 *.db
-*db.sqlite3
+*.sqlite3
 *.csv
 *.pdf
 *.xlsx
