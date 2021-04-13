@@ -13,10 +13,10 @@ class Region(models.Model):
     name = models.CharField(max_length=200)
     
     # The country code
-    code = models.CharField(max_length=200)
+    code = models.CharField(max_length=20)
     
     # The unit used for the indicator
-    unit = models.CharField(max_length=200, null=True)
+    unit = models.CharField(max_length=20, null=True)
 
     # The global id representing the application coordinates as primary id
     global_id = models.IntegerField()
@@ -31,13 +31,13 @@ class Region(models.Model):
     level = models.IntegerField()
     
     # an identifier determining if it is a leaf node or aggregate
-    identifier = models.CharField(max_length=200)
+    identifier = models.CharField(max_length=20)
     
     # the global id's of the leafs for this continent (if available)
-    leaf_children_global = models.CharField(max_length=200)
+    leaf_children_global = models.CharField(max_length=2000)
     
     # the local id's of the leafs of this country (if available)
-    leaf_children_local = models.CharField(max_length=200)
+    leaf_children_local = models.CharField(max_length=2000)
     
     def __str__(self):
         return self.name
@@ -52,13 +52,13 @@ class Product(models.Model):
     name = models.CharField(max_length=200)
 
     # The product category code
-    code = models.CharField(max_length=200)
+    code = models.CharField(max_length=20)
 
     # The global id representing the application coordinates as primary id
     global_id = models.IntegerField()
 
     # The unit used for the indicator
-    unit = models.CharField(max_length=200, null=True)
+    unit = models.CharField(max_length=20, null=True)
 
     # The id representing what parent this product belongs to (by parent global_id)
     parent_id = models.IntegerField()
@@ -70,13 +70,13 @@ class Product(models.Model):
     level = models.IntegerField()
     
     # an identifier determining if it is a leaf node or aggregate
-    identifier = models.CharField(max_length=200)
+    identifier = models.CharField(max_length=20)
 
     # the global id's of the leafs for this product group (if available)
-    leaf_children_global = models.CharField(max_length=200)
+    leaf_children_global = models.CharField(max_length=2000)
 
     # the local id's of the leafs of this product group (if available)
-    leaf_children_local = models.CharField(max_length=200)
+    leaf_children_local = models.CharField(max_length=2000)
 
     def __str__(self):
         return self.name
@@ -90,10 +90,10 @@ class Activity(models.Model):
     name = models.CharField(max_length=200)
     
     # The product category code
-    code = models.CharField(max_length=200)
+    code = models.CharField(max_length=20)
     
     # The unit used for the activity
-    unit = models.CharField(max_length=200, null=True)
+    unit = models.CharField(max_length=20, null=True)
     
     # The global id representing the application coordinates as primary id
     global_id = models.IntegerField()
@@ -108,13 +108,13 @@ class Activity(models.Model):
     level = models.IntegerField()
     
     # an identifier determining if it is a leaf node or aggregate
-    identifier = models.CharField(max_length=200)
+    identifier = models.CharField(max_length=20)
      
     # the global id's of the leafs for this product group (if available)
-    leaf_children_global = models.CharField(max_length=200)
+    leaf_children_global = models.CharField(max_length=2000)
     
     # the local id's of the leafs of this product group (if available)
-    leaf_children_local = models.CharField(max_length=200)
+    leaf_children_local = models.CharField(max_length=2000)
     
 
     def __str__(self):
@@ -130,10 +130,10 @@ class FinalDemand(models.Model):
     name = models.CharField(max_length=200)
     
     # The product category code
-    code = models.CharField(max_length=200)
+    code = models.CharField(max_length=20)
     
     # The unit used for the activity
-    unit = models.CharField(max_length=200, null=True)
+    unit = models.CharField(max_length=20, null=True)
     
     # The global id representing the application coordinates as primary id
     global_id = models.IntegerField()
@@ -148,13 +148,13 @@ class FinalDemand(models.Model):
     level = models.IntegerField()
     
     # an identifier determining if it is a leaf node or aggregate
-    identifier = models.CharField(max_length=200)
+    identifier = models.CharField(max_length=20)
 
     # the global id's of the leafs for this product group (if available)
-    leaf_children_global = models.CharField(max_length=200)
+    leaf_children_global = models.CharField(max_length=2000)
 
     # the local id's of the leafs of this product group (if available)
-    leaf_children_local = models.CharField(max_length=200)
+    leaf_children_local = models.CharField(max_length=2000)
 
     def __str__(self):
         return self.name
@@ -167,10 +167,10 @@ class Indicator(models.Model):
     name = models.CharField(max_length=200)
 
     # The product category code
-    code = models.CharField(max_length=200, null=True)
+    code = models.CharField(max_length=20, null=True)
     
     # The unit used for the indicator
-    unit = models.CharField(max_length=200)
+    unit = models.CharField(max_length=20)
     
     # The global id representing the application coordinates as primary id
     global_id = models.IntegerField()
