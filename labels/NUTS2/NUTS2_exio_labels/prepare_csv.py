@@ -18,7 +18,7 @@ import os, sys
 from collections import defaultdict
 import itertools
 
-MY_TREE_FILE = 'input_data/regions.csv'
+MY_TREE_FILE = 'final_demand.csv'
 BINS = {}
 MYDATA = []
 
@@ -40,7 +40,7 @@ def getfile(myFile):
 
     # fill the empty list with the data (this time split even further by tabs)
     for line in U:
-        data.append(line.split(','))
+        data.append(line.split('\t'))
     # remove header and last line -> it is always structured the same and we reconstruct later in a modified manner
     data.pop(0)
     data.pop(-1)
@@ -89,10 +89,10 @@ def getLowestChildren(level, maxLvl, children, gb, data):
         # for the other ones we need to get get children until Max level is satisfied, HOW TO DO THAT?
         counter = 1
         currentLvl = level[x]
+        print(currentLvl, maxLvl)
         currentLvl = int(currentLvl) + counter
-
         if str(currentLvl) == maxLvl:
-
+        
             myChildrenGlobal = "#".join(children)
 
             myChildrenGlobal_asList.append(children)
@@ -105,7 +105,6 @@ def getLowestChildren(level, maxLvl, children, gb, data):
             special_dict = defaultdict(list)
             for y in range(len(children)):
                 # now we can use the global_id to fetch the correct values
-                print(BINS.keys())
                 resultChildrenofAgg = BINS[children[y]]
                 prepareChildren = list(resultChildrenofAgg)
                 # sometimes a key is already in dict. we want to add a value to it
@@ -155,7 +154,6 @@ def constructFinalCSV(data, dictOfChildren):
     # get all leafs -> Disaggregates
     for x in range(len(data)):
         level = data[x][5]
-
         global_id = data[x][2]
         local_id = data[x][4]
         if level == maxLvl:
@@ -169,7 +167,7 @@ def constructFinalCSV(data, dictOfChildren):
     myLeafsGlobal = "#".join(myLeafsGlobal)
     myLeafsLocal = "#".join(myLeafsLocal)
 
-    with open('output_data/mod_' + os.path.basename(MY_TREE_FILE), 'w') as csvfile:
+    with open('labels_clean/' + MY_TREE_FILE, 'w') as csvfile:
         writer = csv.writer(csvfile, delimiter='\t',
                             quotechar='|', quoting=csv.QUOTE_MINIMAL)
         # reconstruct headers with modifications
@@ -185,6 +183,7 @@ def constructFinalCSV(data, dictOfChildren):
             parent_id = data[x][3]
             local_id = data[x][4]
             level = data[x][5]
+            print(data[x])
             myChildrenGlobal = ""
             myChildrenLocal = ""
             # first check level or alternatively said depth,
@@ -213,25 +212,23 @@ def constructFinalCSV(data, dictOfChildren):
                 for aggregation_id in dictOfChildren:
                     if aggregation_id == parent_id:
                             # now we can use the global_id to fetch the correct values
-                            resultChildrenofAgg = dictOfChildren[global_id]
-                            prepareChildren = list(resultChildrenofAgg)
-
-                            print(resultChildrenofAgg)
-                            print(prepareChildren)
-                            myChildrenGlobal, myChildrenLocal = getLowestChildren(level, maxLvl, prepareChildren,
-                                                                                    global_id, data)
-                            # we are not there yet, as when an Aggregate has children that are Aggregates themselves
-                            # we need to dive even deeper
-                            # thus the number of levels would be needed to traverse to the lowest level
+                            if global_id in dictOfChildren.keys():
+                                resultChildrenofAgg = dictOfChildren[global_id]
+                                prepareChildren = list(resultChildrenofAgg)
+                                myChildrenGlobal, myChildrenLocal = getLowestChildren(level, maxLvl, prepareChildren,
+                                                                                        global_id, data)
+                                # we are not there yet, as when an Aggregate has children that are Aggregates themselves
+                                # we need to dive even deeper
+                                # thus the number of levels would be needed to traverse to the lowest level
 
 
-                            # prepare for output
-                            # prepareChildren = list(resultChildrenofAgg)
-                            # myChildren = "#".join(prepareChildren)
-                            # print("writing modified row for: " + name)
-                            writer.writerow(
-                                [name, code, global_id, parent_id, local_id, level, identifier, myChildrenGlobal,
-                                 myChildrenLocal])
+                                # prepare for output
+                                # prepareChildren = list(resultChildrenofAgg)
+                                # myChildren = "#".join(prepareChildren)
+                                # print("writing modified row for: " + name)
+                                writer.writerow(
+                                    [name, code, global_id, parent_id, local_id, level, identifier, myChildrenGlobal,
+                                    myChildrenLocal])
             print("Row :" + name + " added.")
 
 
@@ -240,6 +237,6 @@ def constructFinalCSV(data, dictOfChildren):
 
 # Start execution here!
 if __name__ == '__main__':
-    data = getfile(MY_TREE_FILE)
+    data = getfile('labels_raw/' + MY_TREE_FILE)
     dictOfChildren = countchildren(data)
     csvData = constructFinalCSV(data, dictOfChildren)

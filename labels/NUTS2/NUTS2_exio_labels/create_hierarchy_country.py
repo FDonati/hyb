@@ -19,15 +19,15 @@ import os
 import collections
 import json
 
-ORIGINAL_EXIO_FILE = '../input_data/hyb_regions.csv'
-NUTS_CLASSIFICATIONS = '../input_data/NUTS_2016L_20190228_185914.csv'
+ORIGINAL_EXIO_FILE = 'labels_raw/regions.csv'
+NUTS_CLASSIFICATIONS = 'input_data/NUTS_2016L_20190228_185914.csv'
 HEADER = ["name", "code", "global_id", "parent_id", "local_id", "level"]
 FIRST_ROW = ["EU NUTS2", "ALL_EU_NUTS2", "1", "0", "1", "1"]
 # SECOND_ROW = ["Rest of world", "REST_WORLD", "2", "0", "2", "1"]
 # start the counter on 1, because of the one pre-determined row
 OFFSET = 1
 COUNTRIES_TO_EXCLUDE = ["TR"]
-OUTPUTFILENAME = "hyb_regions"
+OUTPUTFILENAME = "regions"
 # if false use a default counter, otherwise fix to 50 (extra column/row in EXIOBASE)
 FIX_NUTS2_LOCAL_ID = True
 # filter extra regions out
@@ -37,6 +37,7 @@ TAKE_OUT_ZZ = True
 def getfile(myfile):
     # open the file
     # *** > give the path to the file.
+    print(myfile)
     f = open(myfile, 'r')
 
     # get the content
@@ -55,6 +56,7 @@ def getfile(myfile):
     # remove header and last line -> it is always structured the same and we reconstruct later in a modified manner
     data.pop(0)
     data.pop(-1)
+    print(data)
     return data
 
 
@@ -67,6 +69,7 @@ def filter_nuts(origin, nuts):
         country_name = row1[0]
         exiobase_id_plus_one = row1[4]
         for row2 in nuts:
+            print(row2)
             country_code_nuts = row2[0]
             actual_code_nuts = row2[1]
             nuts_name = row2[2]
@@ -85,7 +88,7 @@ def filter_nuts(origin, nuts):
 
 
 def create_csv(dataset, nuts2_map):
-    with open('../output_data/' + os.path.basename(OUTPUTFILENAME+".csv"), 'w') as csvfile:
+    with open('output_data/' + os.path.basename(OUTPUTFILENAME+".csv"), 'w') as csvfile:
         writer = csv.writer(csvfile, delimiter='\t',
                             quotechar='|', quoting=csv.QUOTE_MINIMAL)
         writer.writerow(HEADER)
@@ -113,7 +116,7 @@ def create_csv(dataset, nuts2_map):
             else:
                 writer.writerow([nuts_name, nuts_code, counter, parent_id, nuts_local_id, "3"])
     # put this into input_data for reuse in euro_stat_api.py
-    with open('../input_data/nuts2_map.json', 'w') as outfile:
+    with open('input_data/nuts2_map.json', 'w') as outfile:
         json.dump(nuts2_map, outfile)
 
     print("***NUTS2_map and " + os.path.basename(OUTPUTFILENAME+".csv") + "files generated***")

@@ -25,7 +25,7 @@ TIME = "2011"
 # exclude switzerland (not present in dataset for income)
 EXCLUDE_CH = True
 
-NUTS2_MAP_FILE_LOC = '../input_data/nuts2_map.json' # map of nuts2 to countries
+NUTS2_MAP_FILE_LOC = 'input_data/nuts2_map.json' # map of nuts2 to countries
 
 ######## INCOME SETTINGS
 INCOME_NA_ITEM = "B5N" # see dataset for NA_Item options nama_10r_2hhinc on the eurostat web explorer
@@ -42,7 +42,7 @@ SBS_INDIC_SB = "V16110"
 SBS_PART_URL = "http://ec.europa.eu/eurostat/wdds/rest/data/v2.1/json/en/"+SBS_DATASET_NAME+"?&precision=1&unit="+SBS_INDIC_SB+\
                 "&time="+TIME
 SBS_INDIC_POS = 2 # position of output values, in most cases its 0 except for the SBS person employed where it is 2
-NACE_SBS_FILE = "../input_data/SBS_codes_new.csv"
+NACE_SBS_FILE = "input_data/SBS_codes_new.csv"
 NACE_LEVEL = 3 # level of depth to try to fetch info
 
 ####### POPULATION SETTINGS
@@ -58,7 +58,7 @@ AGRI_UNIT = "MIO_EUR"
 INDIC_AG = "PROD_BP"
 AGRI_PART_URL = "http://ec.europa.eu/eurostat/wdds/rest/data/v2.1/json/en/"+AGRI_DATASET_NAME+"?&precision=1&unit="+AGRI_UNIT+\
                 "&time="+TIME+"&indic_ag="+INDIC_AG
-NACE_AGRI_FILE = "../input_data/EEA_codes.csv"
+NACE_AGRI_FILE = "input_data/EEA_codes.csv"
 AGRI_INDIC_POS = 0 # position of output values, in most cases its 0 except for the SBS person employed
 
 ###### GROSS FIXED CAPITAL FORMATION SETTINGS
@@ -66,7 +66,7 @@ CAP_DATASET_NAME = "nama_10r_2gfcf"
 CAP_CURRENCY = "MIO_EUR"
 CAP_PART_URL = "http://ec.europa.eu/eurostat/wdds/rest/data/v2.1/json/en/"+CAP_DATASET_NAME+"?&precision=1&currency="+CAP_CURRENCY+\
                 "&time="+TIME
-NACE_CAP_FILE = "../input_data/CAPITAL_FORMATION_codes.csv"
+NACE_CAP_FILE = "input_data/CAPITAL_FORMATION_codes.csv"
 CAP_INDIC_POS = 0 # position of output values, in most cases its 0 except for the SBS person employed
 # sample : nama_10r_2gfcf?precision=1&geo=AT&currency=MIO_EUR&nace_r2=C
 OPTIONS = {1: "Income of households by NUTS 2 regions[nama_10r_2hhinc]["+TIME+"]["+""+INCOME_UNIT+\
@@ -259,7 +259,7 @@ def update_per_sbs_code(url, nace, descriptor, filter_nace):
 
 
 def failed_output(file_name, status, dt_type):
-    with open('../output_data/error_'+dt_type, 'a') as file:
+    with open('output_data/error_'+dt_type, 'a') as file:
         file.write(str(status)+" error in country: "+ file_name+"\n")
 
 
@@ -277,7 +277,7 @@ def order(idx_dict, data):
 
 
 def export(idx, unit, data, file_name):
-    with open('../output_data/' + os.path.basename(file_name+".csv"), 'w') as csvfile:
+    with open('output_data/' + os.path.basename(file_name+".csv"), 'w') as csvfile:
         writer = csv.writer(csvfile, delimiter='\t',
                             quotechar='|', quoting=csv.QUOTE_MINIMAL)
         # try to match the dict keys with each other before writing to file
@@ -291,7 +291,7 @@ def sbs_export_header(codes, file_name):
     copy_codes = codes
     copy_codes.insert(0, ' ')
     # create header first
-    with open('../output_data/' + os.path.basename(file_name+".csv"), 'w') as csvfile:
+    with open('output_data/' + os.path.basename(file_name+".csv"), 'w') as csvfile:
         writer = csv.writer(csvfile, delimiter='\t',
                             quotechar='|', quoting=csv.QUOTE_MINIMAL)
         writer.writerow(codes)
@@ -303,7 +303,7 @@ def sbs_export_data(data, nuts, file_name):
         data.insert(0, nuts)
 
         # create header first
-        with open('../output_data/' + os.path.basename(file_name+".csv"), 'a') as csvfile:
+        with open('output_data/' + os.path.basename(file_name+".csv"), 'a') as csvfile:
             writer = csv.writer(csvfile, delimiter='\t',
                                 quotechar='|', quoting=csv.QUOTE_MINIMAL)
             writer.writerow(data)

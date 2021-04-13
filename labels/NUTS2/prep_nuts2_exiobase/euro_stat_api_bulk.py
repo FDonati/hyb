@@ -26,7 +26,7 @@ TIME_IDX = 7
 # exclude switzerland (not present in dataset for income)
 EXCLUDE_CH = True
 
-NUTS2_MAP_FILE_LOC = '../input_data/nuts2_map.json' # map of nuts2 to countries
+NUTS2_MAP_FILE_LOC = 'input_data/nuts2_map.json' # map of nuts2 to countries
 
 ######## INCOME SETTINGS
 INCOME_NA_ITEM = "B5N" # see dataset for NA_Item options nama_10r_2hhinc on the eurostat web explorer
@@ -38,7 +38,7 @@ INCOME_DATASET_NAME = "nama_10r_2hhinc"
 ####### PERSON EMPLOYED SETTINGS
 SBS_DATASET_NAME = "sbs_r_nuts06_r2"
 SBS_INDIC_SB = "V16110"
-NACE_SBS_FILE = "../input_data/SBS_codes_new.csv"
+NACE_SBS_FILE = "input_data/SBS_codes_new.csv"
 NACE_LEVEL = 3 # level of depth to try to fetch info
 
 ####### AGRICULTURE SETTINGS
@@ -46,13 +46,13 @@ AGRI_DATASET_NAME = "agr_r_accts"
 AGRI_UNIT = "MIO_EUR"
 INDIC_AG = "PROD_BP"
 
-NACE_AGRI_FILE = "../input_data/EEA_codes.csv"
-AGRI_BULK = "../input_data/agr_r_accts.tsv"
+NACE_AGRI_FILE = "input_data/EEA_codes.csv"
+AGRI_BULK = "input_data/agr_r_accts.tsv"
 
 ###### GROSS FIXED CAPITAL FORMATION SETTINGS
 CAP_DATASET_NAME = "nama_10r_2gfcf"
 CAP_CURRENCY = "MIO_EUR"
-NACE_CAP_FILE = "../input_data/CAPITAL_FORMATION_codes.csv"
+NACE_CAP_FILE = "input_data/CAPITAL_FORMATION_codes.csv"
 
 OPTIONS = {1: "Income of households by NUTS 2 regions[nama_10r_2hhinc]["+TIME+"]["+""+INCOME_UNIT+\
            "]["""+INCOME_DIRECTION_OF_FLOW+"]["+INCOME_NA_ITEM+"]" , 2: "SBS data by NUTS 2 regions and NACE Rev. 2 "
@@ -208,7 +208,7 @@ def update_per_sbs_code(nace, filter_nace):
 
 
 def failed_output(file_name, status, dt_type):
-    with open('../output_data/error_'+dt_type, 'a') as file:
+    with open('output_data/error_'+dt_type, 'a') as file:
         file.write(str(status)+" error in country: "+ file_name+"\n")
 
 
@@ -226,7 +226,7 @@ def order(idx_dict, data):
 
 
 def export(idx, unit, data, file_name):
-    with open('../output_data/' + os.path.basename(file_name+".csv"), 'w') as csvfile:
+    with open('output_data/' + os.path.basename(file_name+".csv"), 'w') as csvfile:
         writer = csv.writer(csvfile, delimiter='\t',
                             quotechar='|', quoting=csv.QUOTE_MINIMAL)
         # try to match the dict keys with each other before writing to file
@@ -240,7 +240,7 @@ def sbs_export_header(codes, file_name):
     copy_codes = codes
     copy_codes.insert(0, ' ')
     # create header first
-    with open('../output_data/' + os.path.basename(file_name+".csv"), 'w') as csvfile:
+    with open('output_data/' + os.path.basename(file_name+".csv"), 'w') as csvfile:
         writer = csv.writer(csvfile, delimiter='\t',
                             quotechar='|', quoting=csv.QUOTE_MINIMAL)
         writer.writerow(codes)
@@ -252,7 +252,7 @@ def sbs_export_data(data, nuts, file_name):
         data.insert(0, nuts)
 
         # create header first
-        with open('../output_data/' + os.path.basename(file_name+".csv"), 'a') as csvfile:
+        with open('output_data/' + os.path.basename(file_name+".csv"), 'a') as csvfile:
             writer = csv.writer(csvfile, delimiter='\t',
                                 quotechar='|', quoting=csv.QUOTE_MINIMAL)
             writer.writerow(data)

@@ -129,7 +129,8 @@ def save_arrays():
     np.save("clean_data/hybrid/e.npy", e)
     np.save("clean_data/hybrid/w.npy", w)
 
-
+def save_labels():
+    act_labels.to_csv("activities.csv")
 
 # keywords contained in the labels of extension input
 

@@ -5,3 +5,10 @@
 [submodule "NUTS2_disag"]
 	path = calculations/modules/NUTS2_disag
 	url = https://github.com/FDonati/CircuMAT.git
+
+
+[submodule "NUTS2_EXIOBASE_labels"]
+	path = labels/NUTS2
+	url = https://github.com/FDonati/NUTS2_EXIOBASE_labels.git
+
+
