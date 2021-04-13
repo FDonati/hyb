@@ -93,6 +93,50 @@ class Product(models.Model):
     def __str__(self):
         return self.name
 
+class Activity(models.Model):
+    """
+    Product model to store identifiers for the products and aggregations
+    """
+    name = models.CharField(max_length=200)
+    """
+        The name of the product category
+    """
+    code = models.CharField(max_length=200)
+    """
+        The product category code
+    """
+    global_id = models.IntegerField()
+    """
+        The global id representing the application coordinates as primary id
+    """
+    parent_id = models.IntegerField()
+    """
+        The id representing what parent this product belongs to (by parent global_id)
+    """
+    local_id = models.IntegerField()
+    """
+        The local id, only used if the hierarchy level is the lowest
+    """
+    level = models.IntegerField()
+    """
+       The level of hierarchy this product is in
+    """
+    identifier = models.CharField(max_length=200)
+    """
+        an identifier determining if it is a leaf node or aggregate
+     """
+    leaf_children_global = models.TextField(max_length=1000)
+    """
+        the global id's of the leafs for this product group (if available)
+    """
+    leaf_children_local = models.TextField(max_length=1000)
+    """
+        the local id's of the leafs of this product group (if available)
+    """
+
+    def __str__(self):
+        return self.name
+
 
 class ModellingProduct(models.Model):
     """

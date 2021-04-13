@@ -14,7 +14,7 @@ class Command(BaseCommand):
     def handle(self, *args, **options):
         try:
             project_root_dir = settings.BASE_DIR
-            indicatorData = getfile(os.path.join(project_root_dir, 'python_ini/data/mod_indicators.csv'))
+            indicatorData = getfile(os.path.join(project_root_dir, 'labels/data/mod_indicators.csv'))
             regionData = getfile(
                 os.path.join(project_root_dir, 'python_ini/data/mod_circumat_regions.csv'))
             productData = getfile(
@@ -25,7 +25,7 @@ class Command(BaseCommand):
             populate(indicatorData, "Indicator")
             populate(regionData, "Region")
             populate(productData, "Product")
-            populate(model_productData, "ModellingProduct")
+            populate(model_productData, "activity")
         except Exception as e:
             sys.exit("Adding database objects Failed.." + e)
 
@@ -42,7 +42,7 @@ def addProduct(name, code, global_id, parent_id, local_id, level, identifier, le
 
 
 # function that adds to DB
-def addModelProduct(name, code, global_id, parent_id, local_id, level, identifier, leaf_children_global,
+def addFinalDemand(name, code, global_id, parent_id, local_id, level, identifier, leaf_children_global,
                     leaf_children_local):
     e, created = ModellingProduct.objects.get_or_create(name=name, code=code, global_id=global_id, parent_id=parent_id,
                                                         local_id=local_id, level=level, identifier=identifier,
@@ -65,6 +65,13 @@ def addRegion(name, code, global_id, parent_id, local_id, level, identifier, lea
 
 # function that adds to DB
 def addIndicator(name, unit, global_id, parent_id, local_id, level):
+    e, created = Indicator.objects.get_or_create(name=name, unit=unit, global_id=global_id, parent_id=parent_id,
+                                                 local_id=local_id, level=level)
+
+    return e
+
+# function that adds to DB
+def addActivity(name, unit, global_id, parent_id, local_id, level):
     e, created = Indicator.objects.get_or_create(name=name, unit=unit, global_id=global_id, parent_id=parent_id,
                                                  local_id=local_id, level=level)
 

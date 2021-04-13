@@ -19,3 +19,6 @@ data/data/*.json
 
 # migration files
 migrations
+
+# Diaggregation and labels scripts
+labels/NUTS2
