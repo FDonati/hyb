@@ -138,7 +138,7 @@ class Activity(models.Model):
         return self.name
 
 
-class FinaldDemand(models.Model):
+class FinalDemand(models.Model):
     """
     Modelling data-model to store identifiers for the products and aggregations (slight modified version of Product)
     """

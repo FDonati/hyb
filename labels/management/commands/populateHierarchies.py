@@ -1,6 +1,6 @@
 from django.conf import settings
 from django.core.management.base import BaseCommand
-from labels.models import Region, Product, Indicator, Activity, FinaldDemand
+from labels.models import Region, Product, Indicator, Activity, FinalDemand
 
 import os
 import sys
@@ -36,47 +36,14 @@ class Command(BaseCommand):
 
 
 # function that adds to DB
-def addProduct(name, code, global_id, parent_id, local_id, level, identifier, leaf_children_global,
+def addToDB(model ,name, code, global_id, parent_id, local_id, level, identifier, leaf_children_global,
                leaf_children_local):
-    e, created = Product.objects.get_or_create(name=name, code=code, global_id=global_id, parent_id=parent_id,
+    e, created = model.objects.get_or_create(name=name, code=code, global_id=global_id, parent_id=parent_id,
                                                local_id=local_id, level=level, identifier=identifier,
                                                leaf_children_global=leaf_children_global,
                                                leaf_children_local=leaf_children_local)
 
     return e
-
-# function that adds to DB
-def addActivity(name, code, global_id, parent_id, local_id, level, identifier, leaf_children_global,
-               leaf_children_local):
-    e, created = Activity.objects.get_or_create(name=name, code=code, global_id=global_id, parent_id=parent_id,
-                                               local_id=local_id, level=level, identifier=identifier,
-                                               leaf_children_global=leaf_children_global,
-                                               leaf_children_local=leaf_children_local)
-
-    return e
-
-
-# function that adds to DB
-def addFinalDemand(name, code, global_id, parent_id, local_id, level, identifier, leaf_children_global,
-                   leaf_children_local):
-    e, created = FinaldDemand.objects.get_or_create(name=name, code=code, global_id=global_id, parent_id=parent_id,
-                                                        local_id=local_id, level=level, identifier=identifier,
-                                                        leaf_children_global=leaf_children_global,
-                                                        leaf_children_local=leaf_children_local)
-
-    return e
-
-
-# function that adds to DB
-def addRegion(name, code, global_id, parent_id, local_id, level, identifier, leaf_children_global,
-              leaf_children_local):
-    e, created = Region.objects.get_or_create(name=name, code=code, global_id=global_id, parent_id=parent_id,
-                                              local_id=local_id, level=level, identifier=identifier,
-                                              leaf_children_global=leaf_children_global,
-                                              leaf_children_local=leaf_children_local)
-
-    return e
-
 
 # function that adds to DB
 def addIndicator(name, unit, global_id, parent_id, local_id, level):
@@ -124,20 +91,17 @@ def populate(data_obj, model_type):
                 leaf_children_local = x[8]
                 counter += 1
                 if model_type == "Product":
-                    addProduct(name, code, global_id, parent_id, local_id, level, identifier, leaf_children_global,
-                               leaf_children_local)
+                    model = Product
                 elif model_type == "Region":
-                    addRegion(name, code, global_id, parent_id, local_id, level, identifier, leaf_children_global,
-                              leaf_children_local)
+                    model = Region
                 elif model_type == "Activity":
-                    addActivity(name, code, global_id, parent_id, local_id, level, identifier, leaf_children_global,
-                                    leaf_children_local)
+                    model = Activity
                 elif model_type == "FinalDemand":
-                    addFinalDemand(name, code, global_id, parent_id, local_id, level, identifier, leaf_children_global,
-                                    leaf_children_local)
-
+                    model = FinalDemand
                 else:
                     sys.exit("Model_type not recognized.")
+                addToDB(model, name, code, global_id, parent_id, local_id, level, identifier, leaf_children_global,
+                            leaf_children_local)
                 print("number of records: " + str(counter), end='\r')
             except Exception as e:
                 sys.exit("Adding database objects Failed.." + e)
