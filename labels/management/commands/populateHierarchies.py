@@ -1,6 +1,6 @@
 from django.conf import settings
 from django.core.management.base import BaseCommand
-from labels.models import Region, Product, Indicator, ModellingProduct
+from labels.models import Region, Product, Indicator, Activity, FinaldDemand
 
 import os
 import sys
@@ -14,18 +14,23 @@ class Command(BaseCommand):
     def handle(self, *args, **options):
         try:
             project_root_dir = settings.BASE_DIR
-            indicatorData = getfile(os.path.join(project_root_dir, 'labels/data/mod_indicators.csv'))
+            indicatorData = getfile(os.path.join(
+                project_root_dir, 'labels/source/indicators.csv'))
             regionData = getfile(
-                os.path.join(project_root_dir, 'python_ini/data/mod_circumat_regions.csv'))
+                os.path.join(project_root_dir, 'labels/source/regions.csv'))
             productData = getfile(
-                os.path.join(project_root_dir, 'python_ini/data/mod_final_productTree_exiovisuals.csv'))
-            model_productData = getfile(
-                os.path.join(project_root_dir, 'python_ini/data/modelling_mod_final_productTree_exiovisuals.csv'))
+                os.path.join(project_root_dir, 'labels/source/products.csv'))
+            finalDemandData = getfile(
+                os.path.join(project_root_dir, 'labels/source/final_demand.csv'))
+            activityData = getfile(
+                os.path.join(project_root_dir, 'labels/source/activities.csv'))
+
 
             populate(indicatorData, "Indicator")
             populate(regionData, "Region")
             populate(productData, "Product")
-            populate(model_productData, "activity")
+            populate(activityData, "Activity")
+            populate(finalDemandData, "FinalDemand")
         except Exception as e:
             sys.exit("Adding database objects Failed.." + e)
 
@@ -40,11 +45,21 @@ def addProduct(name, code, global_id, parent_id, local_id, level, identifier, le
 
     return e
 
+# function that adds to DB
+def addActivity(name, code, global_id, parent_id, local_id, level, identifier, leaf_children_global,
+               leaf_children_local):
+    e, created = Activity.objects.get_or_create(name=name, code=code, global_id=global_id, parent_id=parent_id,
+                                               local_id=local_id, level=level, identifier=identifier,
+                                               leaf_children_global=leaf_children_global,
+                                               leaf_children_local=leaf_children_local)
+
+    return e
+
 
 # function that adds to DB
 def addFinalDemand(name, code, global_id, parent_id, local_id, level, identifier, leaf_children_global,
-                    leaf_children_local):
-    e, created = ModellingProduct.objects.get_or_create(name=name, code=code, global_id=global_id, parent_id=parent_id,
+                   leaf_children_local):
+    e, created = FinaldDemand.objects.get_or_create(name=name, code=code, global_id=global_id, parent_id=parent_id,
                                                         local_id=local_id, level=level, identifier=identifier,
                                                         leaf_children_global=leaf_children_global,
                                                         leaf_children_local=leaf_children_local)
@@ -54,11 +69,11 @@ def addFinalDemand(name, code, global_id, parent_id, local_id, level, identifier
 
 # function that adds to DB
 def addRegion(name, code, global_id, parent_id, local_id, level, identifier, leaf_children_global,
-               leaf_children_local):
+              leaf_children_local):
     e, created = Region.objects.get_or_create(name=name, code=code, global_id=global_id, parent_id=parent_id,
-                                               local_id=local_id, level=level, identifier=identifier,
-                                               leaf_children_global=leaf_children_global,
-                                               leaf_children_local=leaf_children_local)
+                                              local_id=local_id, level=level, identifier=identifier,
+                                              leaf_children_global=leaf_children_global,
+                                              leaf_children_local=leaf_children_local)
 
     return e
 
@@ -71,11 +86,6 @@ def addIndicator(name, unit, global_id, parent_id, local_id, level):
     return e
 
 # function that adds to DB
-def addActivity(name, unit, global_id, parent_id, local_id, level):
-    e, created = Indicator.objects.get_or_create(name=name, unit=unit, global_id=global_id, parent_id=parent_id,
-                                                 local_id=local_id, level=level)
-
-    return e
 
 
 def populate(data_obj, model_type):
@@ -118,9 +128,12 @@ def populate(data_obj, model_type):
                                leaf_children_local)
                 elif model_type == "Region":
                     addRegion(name, code, global_id, parent_id, local_id, level, identifier, leaf_children_global,
-                               leaf_children_local)
-                elif model_type == "ModellingProduct":
-                    addModelProduct(name, code, global_id, parent_id, local_id, level, identifier, leaf_children_global,
+                              leaf_children_local)
+                elif model_type == "Activity":
+                    addActivity(name, code, global_id, parent_id, local_id, level, identifier, leaf_children_global,
+                                    leaf_children_local)
+                elif model_type == "FinalDemand":
+                    addFinalDemand(name, code, global_id, parent_id, local_id, level, identifier, leaf_children_global,
                                     leaf_children_local)
 
                 else:
