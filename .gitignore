@@ -22,3 +22,7 @@ migrations
 
 # Diaggregation and labels scripts
 labels/NUTS2
+
+# Data preparation 
+
+data/prep.py
