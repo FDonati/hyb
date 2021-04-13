@@ -8,7 +8,7 @@ class Command(BaseCommand):
     """
 
     def handle(self, *args, **options):
-        print("***removing hierarchies out of DB***")
+        print("***removing labels out of DB***")
         Region.objects.all().delete()
         Product.objects.all().delete()
         Indicator.objects.all().delete()

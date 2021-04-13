@@ -43,11 +43,15 @@ $ python -c 'from django.core.management.utils import get_random_secret_key; key
 ```
 $ python3 manage.py makemigrations
 $ python3 manage.py migrate
+$ python3 manage.py populateLabels
 ```
+
+If you need to clear populated labels you can run
+```
+$ python3 manage.py clearLabels
+```
+
 ### start the container
-```
-$ docker-compose up 
-```
 
 If you run into issues you likely need to rebuild the image
 In that case run
@@ -75,4 +79,3 @@ Loads and manages the different databases and their indexes.
 1) Users and groups' data
 2) Exiobase hybrid and monetary tables
 3) Saved scenarios
- 
